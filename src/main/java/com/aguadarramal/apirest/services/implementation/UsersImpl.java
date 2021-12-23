@@ -1,5 +1,6 @@
 package com.aguadarramal.apirest.services.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import com.aguadarramal.apirest.dto.UsersDTO;
 import com.aguadarramal.apirest.entities.Users;
 import com.aguadarramal.apirest.repository.UsersRepository;
 import com.aguadarramal.apirest.services.interfaces.IUsersService;
+import com.aguadarramal.apirest.utils.Mhelpers;
 
 @Component
 public class UsersImpl implements IUsersService{
@@ -22,37 +24,58 @@ public class UsersImpl implements IUsersService{
 	public Page<UsersDTO> findAll() {
 		
 		Page<Users> users = this.usersRepository.findAll();
-		return null;
+		return users.map(this::convertToUsersDTO) ;
 	}
 
 	@Override
-	public Optional<UsersDTO> findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public UsersDTO findByUsername(String username) {
+		Optional<Users> users = this.usersRepository.findByUsername(username);
+		if(!users.isPresent()) {
+			return null;
+		}
+		return Mhelpers.modelMapper().map(users.get(), UsersDTO.class);
 	}
 
 	@Override
-	public Optional<UsersDTO> findById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public UsersDTO findById(int userId) {
+		Optional<Users> users = this.usersRepository.findById(userId);
+		if(!users.isPresent()) {
+			return null;
+		}
+		return Mhelpers.modelMapper().map(users.get(), UsersDTO.class);
 	}
+	
 
 	@Override
 	public void save(UsersDTO user) {
-		// TODO Auto-generated method stub
+		Users users = Mhelpers.modelMapper().map(user, Users.class);
+		this.usersRepository.save(users);
 		
 	}
 
 	@Override
 	public void saveAll(List<UsersDTO> users) {
-		// TODO Auto-generated method stub
-		
+
+		List<Users> u = new ArrayList<>();
+		for(UsersDTO user : users) {
+			Users us = Mhelpers.modelMapper().map(users,  Users.class);
+			u.add(us);
+		}
+		this.usersRepository.saveAll(u);
 	}
 
 	@Override
 	public void deleteById(int userId) {
-		// TODO Auto-generated method stub
+		this.usersRepository.deleteById(userId);
 		
 	}
+	
+	private UsersDTO convertToUsersDTO(final Users user) {
+		return Mhelpers.modelMapper().map(user, UsersDTO.class);
+	}
+
+
+
+	
 
 }
