@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.aguadarramal.apirest.dto.UsersDTO;
@@ -21,10 +20,15 @@ public class UsersImpl implements IUsersService{
 	UsersRepository usersRepository;
 	
 	@Override
-	public Page<UsersDTO> findAll() {
-		
-		Page<Users> users = this.usersRepository.findAll();
-		return users.map(this::convertToUsersDTO) ;
+	public List<UsersDTO> findAll() {
+		List<UsersDTO> dto = new ArrayList<>();
+		Iterable<Users> users = this.usersRepository.findAll();
+
+		for(Users user:users) {
+			UsersDTO usersDTO = Mhelpers.modelMapper().map(users, UsersDTO.class);
+			dto.add(usersDTO);
+		}
+		return dto;		
 	}
 
 	@Override

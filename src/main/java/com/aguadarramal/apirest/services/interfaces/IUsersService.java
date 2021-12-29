@@ -11,7 +11,7 @@ import com.aguadarramal.apirest.dto.UsersDTO;
 @Service
 public interface IUsersService {
 
-	Page<UsersDTO> findAll();
+	List<UsersDTO> findAll();
 	UsersDTO findByUsername(String username);
 	UsersDTO findById(int userId);
 	void save(UsersDTO user);
