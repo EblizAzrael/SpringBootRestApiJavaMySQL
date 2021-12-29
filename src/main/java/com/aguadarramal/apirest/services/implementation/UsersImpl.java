@@ -14,27 +14,27 @@ import com.aguadarramal.apirest.services.interfaces.IUsersService;
 import com.aguadarramal.apirest.utils.Mhelpers;
 
 @Component
-public class UsersImpl implements IUsersService{
-	
+public class UsersImpl implements IUsersService {
+
 	@Autowired
 	UsersRepository usersRepository;
-	
+
 	@Override
 	public List<UsersDTO> findAll() {
 		List<UsersDTO> dto = new ArrayList<>();
 		Iterable<Users> users = this.usersRepository.findAll();
-
-		for(Users user:users) {
+		for (Users user : users) {
 			UsersDTO usersDTO = Mhelpers.modelMapper().map(user, UsersDTO.class);
 			dto.add(usersDTO);
 		}
-		return dto;		
+		return dto;
 	}
 
 	@Override
 	public UsersDTO findByUsername(String username) {
+		System.out.println("username:" + username);
 		Optional<Users> users = this.usersRepository.findByUsername(username);
-		if(!users.isPresent()) {
+		if (!users.isPresent()) {
 			return null;
 		}
 		return Mhelpers.modelMapper().map(users.get(), UsersDTO.class);
@@ -43,26 +43,25 @@ public class UsersImpl implements IUsersService{
 	@Override
 	public UsersDTO findById(int userId) {
 		Optional<Users> users = this.usersRepository.findById(userId);
-		if(!users.isPresent()) {
+		if (!users.isPresent()) {
 			return null;
 		}
 		return Mhelpers.modelMapper().map(users.get(), UsersDTO.class);
 	}
-	
 
 	@Override
 	public void save(UsersDTO user) {
 		Users users = Mhelpers.modelMapper().map(user, Users.class);
 		this.usersRepository.save(users);
-		
+
 	}
 
 	@Override
 	public void saveAll(List<UsersDTO> users) {
 
 		List<Users> u = new ArrayList<>();
-		for(UsersDTO user : users) {
-			Users us = Mhelpers.modelMapper().map(users,  Users.class);
+		for (UsersDTO user : users) {
+			Users us = Mhelpers.modelMapper().map(users, Users.class);
 			u.add(us);
 		}
 		this.usersRepository.saveAll(u);
@@ -71,15 +70,11 @@ public class UsersImpl implements IUsersService{
 	@Override
 	public void deleteById(int userId) {
 		this.usersRepository.deleteById(userId);
-		
+
 	}
-	
+
 	private UsersDTO convertToUsersDTO(final Users user) {
 		return Mhelpers.modelMapper().map(user, UsersDTO.class);
 	}
-
-
-
-	
 
 }
