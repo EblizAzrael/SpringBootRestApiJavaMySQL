@@ -25,7 +25,7 @@ public class UsersImpl implements IUsersService{
 		Iterable<Users> users = this.usersRepository.findAll();
 
 		for(Users user:users) {
-			UsersDTO usersDTO = Mhelpers.modelMapper().map(users, UsersDTO.class);
+			UsersDTO usersDTO = Mhelpers.modelMapper().map(user, UsersDTO.class);
 			dto.add(usersDTO);
 		}
 		return dto;		
