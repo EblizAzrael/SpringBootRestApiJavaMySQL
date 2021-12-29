@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.aguadarramal.apirest.dto.UserRequest;
 import com.aguadarramal.apirest.dto.UsersDTO;
 import com.aguadarramal.apirest.entities.Users;
 import com.aguadarramal.apirest.repository.UsersRepository;
@@ -50,17 +51,17 @@ public class UsersImpl implements IUsersService {
 	}
 
 	@Override
-	public void save(UsersDTO user) {
+	public void save(UserRequest user) {
 		Users users = Mhelpers.modelMapper().map(user, Users.class);
 		this.usersRepository.save(users);
 
 	}
 
 	@Override
-	public void saveAll(List<UsersDTO> users) {
+	public void saveAll(List<UserRequest> users) {
 
 		List<Users> u = new ArrayList<>();
-		for (UsersDTO user : users) {
+		for (UserRequest user : users) {
 			Users us = Mhelpers.modelMapper().map(users, Users.class);
 			u.add(us);
 		}

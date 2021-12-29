@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.aguadarramal.apirest.dto.UserRequest;
 import com.aguadarramal.apirest.dto.UsersDTO;
 
 @Service
@@ -14,7 +15,7 @@ public interface IUsersService {
 	List<UsersDTO> findAll();
 	UsersDTO findByUsername(String username);
 	UsersDTO findById(int userId);
-	void save(UsersDTO user);
-	void saveAll(List<UsersDTO>users);
+	void save(UserRequest user);
+	void saveAll(List<UserRequest>users);
 	void deleteById(int userId);
 }
