@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Personales ###
+nb-configuration.xml
+.mvn/wrapper
