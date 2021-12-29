@@ -12,8 +12,8 @@ import com.aguadarramal.apirest.dto.UsersDTO;
 import com.aguadarramal.apirest.entities.Users;
 import com.aguadarramal.apirest.repository.UsersRepository;
 import com.aguadarramal.apirest.services.interfaces.IUsersService;
-import com.aguadarramal.apirest.utils.BCrypt;
-import com.aguadarramal.apirest.utils.Mhelpers;
+import com.aguadarramal.apirest.utils.hash.BCrypt;
+import com.aguadarramal.apirest.utils.helpers.Mhelpers;
 
 @Component
 public class UsersImpl implements IUsersService {

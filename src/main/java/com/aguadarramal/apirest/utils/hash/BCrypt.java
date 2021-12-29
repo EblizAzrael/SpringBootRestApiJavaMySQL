@@ -1,4 +1,4 @@
-package com.aguadarramal.apirest.utils;
+package com.aguadarramal.apirest.utils.hash;
 
 import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
