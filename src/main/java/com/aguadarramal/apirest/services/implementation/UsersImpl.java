@@ -12,6 +12,7 @@ import com.aguadarramal.apirest.dto.UsersDTO;
 import com.aguadarramal.apirest.entities.Users;
 import com.aguadarramal.apirest.repository.UsersRepository;
 import com.aguadarramal.apirest.services.interfaces.IUsersService;
+import com.aguadarramal.apirest.utils.BCrypt;
 import com.aguadarramal.apirest.utils.Mhelpers;
 
 @Component
@@ -53,6 +54,7 @@ public class UsersImpl implements IUsersService {
 	@Override
 	public void save(UserRequest user) {
 		Users users = Mhelpers.modelMapper().map(user, Users.class);
+		users.setPassword(BCrypt.hashpw(users.getPassword(), BCrypt.gensalt()));
 		this.usersRepository.save(users);
 
 	}
