@@ -75,9 +75,35 @@ public class UsersImpl implements IUsersService {
 		this.usersRepository.deleteById(userId);
 
 	}
+	
+	@Override
+	public void update(UserRequest userRequest, int userId) {
+		Optional<Users> users = this.usersRepository.findById(userId);
+		Users user = users.get();
+	if (!userRequest.getFirstname().isEmpty()) {
+		user.setFirstname(userRequest.getFirstname());
+	}
+	if (!userRequest.getLastname().isEmpty()) {
+		user.setLastname(userRequest.getLastname());
+		}
+	if (!userRequest.getUsername().isEmpty()) {
+		user.setUsername(userRequest.getUsername());
+	}
+	if (!userRequest.getPassword().isEmpty()) {
+		user.setPassword(BCrypt.hashpw(userRequest.getPassword(), BCrypt.gensalt()));
+	}
+	this.usersRepository.save(user);
+		
+	}
+	
+	
+	
+	
 
 	private UsersDTO convertToUsersDTO(final Users user) {
 		return Mhelpers.modelMapper().map(user, UsersDTO.class);
 	}
+
+	
 
 }

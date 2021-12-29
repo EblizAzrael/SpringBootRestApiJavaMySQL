@@ -17,5 +17,6 @@ public interface IUsersService {
 	UsersDTO findById(int userId);
 	void save(UserRequest user);
 	void saveAll(List<UserRequest>users);
+	void update(UserRequest userRequest, int id);
 	void deleteById(int userId);
 }
